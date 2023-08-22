@@ -1,4 +1,4 @@
-import { mockWeatherAPIResponse } from "@__tests__/mocks/mockWeatherAPIResponse";
+import { mockWeatherAPIResponse } from "@__tests__/mocks/api/mockWeatherAPIResponse";
 import { api } from "./api";
 import { getWeatherByCityService } from "./getWeatherByCityService";
 
@@ -11,6 +11,6 @@ describe("Service: getCityByNameService", () => {
       longitude: 456,
     });
 
-    expect(response).toHaveProperty('today')
+    expect(response).toHaveProperty("today");
   });
 });
