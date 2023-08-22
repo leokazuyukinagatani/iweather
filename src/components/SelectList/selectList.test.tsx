@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react-native";
+import { fireEvent, render, screen } from "@testing-library/react-native";
 import { SelectList } from "@components/SelectList";
 
 describe("Component: SelectList", () => {
@@ -18,12 +18,33 @@ describe("Component: SelectList", () => {
       },
     ];
 
+    const onPress = jest.fn();
+
     const { debug } = render(
-      <SelectList data={data} onChange={() => {}} onPress={() => {}} />
+      <SelectList data={data} onChange={() => {}} onPress={onPress} />
     );
 
     const selectedCity = screen.getByText(/São paulo/i);
-    expect(selectedCity).toBeDefined();
-    expect(true).toBe(true);
+
+    fireEvent.press(selectedCity);
+    
+    expect(onPress).toBeCalledWith(data[0])
+
+
   });
+
+  it("not should be show options when data props is empty", () => {
+    render(
+      <SelectList
+        data={[]}
+        onChange={() => {}}
+        onPress={() => {}}
+      
+      />)
+
+      const options = screen.getByTestId("options");
+
+      expect(options.children).toHaveLength(0)
+    
+  })
 });
